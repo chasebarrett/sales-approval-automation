@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380" font-family="Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1 L8 5 L2 9" fill="none" stroke="#9aa3af" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="679" height="379" rx="12" fill="#ffffff" stroke="#e6e9ee"/>
+
+  <!-- ===== BEFORE ===== -->
+  <text x="46" y="34" font-size="13" font-weight="700" fill="#283039">Before automation</text>
+
+  <rect x="46" y="58" width="132" height="56" rx="8" fill="#eceff3" stroke="#cdd5df"/>
+  <text x="112" y="81" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Customer order</text>
+  <text x="112" y="99" font-size="11" fill="#69727d" text-anchor="middle">Shopify, Magento</text>
+
+  <rect x="198" y="58" width="132" height="56" rx="8" fill="#eceff3" stroke="#cdd5df"/>
+  <text x="264" y="81" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Sync to ERP</text>
+  <text x="264" y="99" font-size="11" fill="#69727d" text-anchor="middle">Celigo &#8594; NetSuite</text>
+
+  <rect x="350" y="58" width="132" height="56" rx="8" fill="#f9e6d2" stroke="#dca15e"/>
+  <text x="416" y="81" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Manual approval</text>
+  <text x="416" y="99" font-size="11" fill="#69727d" text-anchor="middle">CSR checks each</text>
+
+  <rect x="502" y="58" width="132" height="56" rx="8" fill="#eceff3" stroke="#cdd5df"/>
+  <text x="568" y="81" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Warehouse</text>
+  <text x="568" y="99" font-size="11" fill="#69727d" text-anchor="middle">Uneven batches</text>
+
+  <line x1="180" y1="86" x2="196" y2="86" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="332" y1="86" x2="348" y2="86" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="484" y1="86" x2="500" y2="86" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <line x1="40" y1="150" x2="640" y2="150" stroke="#dfe3e8" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ===== AFTER ===== -->
+  <text x="46" y="184" font-size="13" font-weight="700" fill="#283039">After automation</text>
+
+  <rect x="44" y="222" width="126" height="56" rx="8" fill="#eceff3" stroke="#cdd5df"/>
+  <text x="107" y="245" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Customer order</text>
+  <text x="107" y="263" font-size="11" fill="#69727d" text-anchor="middle">Shopify</text>
+
+  <rect x="190" y="222" width="126" height="56" rx="8" fill="#d3efe8" stroke="#4fb3a1"/>
+  <text x="253" y="245" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Shopify Flow</text>
+  <text x="253" y="263" font-size="11" fill="#69727d" text-anchor="middle">Tag rules</text>
+
+  <rect x="340" y="200" width="134" height="52" rx="8" fill="#d3efe8" stroke="#4fb3a1"/>
+  <text x="407" y="221" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Auto-approve</text>
+  <text x="407" y="237" font-size="11" fill="#69727d" text-anchor="middle">61% of orders</text>
+
+  <rect x="340" y="276" width="134" height="52" rx="8" fill="#f9e6d2" stroke="#dca15e"/>
+  <text x="407" y="297" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Edge cases</text>
+  <text x="407" y="313" font-size="11" fill="#69727d" text-anchor="middle">39% &#183; CSR review</text>
+
+  <rect x="506" y="236" width="128" height="56" rx="8" fill="#eceff3" stroke="#cdd5df"/>
+  <text x="570" y="259" font-size="13" font-weight="600" fill="#283039" text-anchor="middle">Warehouse</text>
+  <text x="570" y="277" font-size="11" fill="#69727d" text-anchor="middle">Even, stable flow</text>
+
+  <line x1="172" y1="250" x2="188" y2="250" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="318" y1="248" x2="338" y2="228" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="318" y1="252" x2="338" y2="300" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="476" y1="226" x2="504" y2="256" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+  <line x1="476" y1="302" x2="504" y2="272" stroke="#9aa3af" stroke-width="1.6" marker-end="url(#arr)"/>
+
+  <!-- ===== LEGEND ===== -->
+  <rect x="46" y="345" width="13" height="13" rx="3" fill="#d3efe8" stroke="#4fb3a1"/>
+  <text x="66" y="355" font-size="11" fill="#69727d">Automated</text>
+  <rect x="180" y="345" width="13" height="13" rx="3" fill="#f9e6d2" stroke="#dca15e"/>
+  <text x="200" y="355" font-size="11" fill="#69727d">Manual touchpoint</text>
+</svg>
