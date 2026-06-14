@@ -50,32 +50,9 @@ Automate the approval-to-ship decision to cut fulfillment delay, smooth warehous
 
 I first confirmed the gate was actually removable: a conversation with the **warehouse manager** to understand downstream impact, then with the **CFO** and the **Direct Sales Manager** to trace the gate's history and confirm it was no longer a real control. Only then did I design the automation. (See [Solution Design](solution-design.md) for the alternatives weighed and the full rationale.)
 
-### Before
+![Order flow before and after the SATS automation](diagrams/order-flow.svg)
 
-```mermaid
-flowchart LR
-  A["Customer order<br/>Shopify, Magento"]
-  B["Sync to ERP<br/>Celigo → NetSuite"]
-  C["Manual approval<br/>CSR checks each order"]
-  D["Warehouse<br/>Uneven batches"]
-  A --> B --> C --> D
-```
-
-### After
-
-```mermaid
-flowchart LR
-  A["Customer order<br/>Shopify"]
-  B["Shopify Flow<br/>Tag rules"]
-  C["Auto-approve<br/>61% of orders"]
-  D["Edge cases<br/>39% · CSR review"]
-  E["Warehouse<br/>Even, stable flow"]
-  A --> B
-  B -->|Meets criteria| C
-  B -->|Unusual order| D
-  C --> E
-  D --> E
-```
+*Before: every order waits on a manual CSR approval, reaching the warehouse in uneven batches. After: Shopify Flow auto-approves the 61% that clearly qualify and routes the rest to the existing CSR path — the warehouse receives a steady, even flow.*
 
 ---
 
