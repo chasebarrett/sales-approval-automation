@@ -50,7 +50,7 @@ Automate the approval-to-ship decision to cut fulfillment delay, smooth warehous
 
 I first confirmed the gate was actually removable: a conversation with the **warehouse manager** to understand downstream impact, then with the **CFO** and the **Direct Sales Manager** to trace the gate's history and confirm it was no longer a real control. Only then did I design the automation. (See [Solution Design](solution-design.md) for the alternatives weighed and the full rationale.)
 
-![Order flow before and after the SATS automation](diagrams/order-flow.svg)
+![Order flow before and after the SATS automation](/order-flow.svg)
 
 *Before: every order waits on a manual CSR approval, reaching the warehouse in uneven batches. After: Shopify Flow auto-approves the 61% that clearly qualify and routes the rest to the existing CSR path — the warehouse receives a steady, even flow.*
 
