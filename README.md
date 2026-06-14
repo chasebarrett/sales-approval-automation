@@ -48,7 +48,7 @@ Automate the approval-to-ship decision to cut fulfillment delay, smooth warehous
 
 **Allowlist, not blocklist.** Rather than auto-approving everything and hunting for problems, the system auto-approves only orders that clearly meet safe criteria and routes anything unusual to CSRs as edge cases — the existing manual path. This contained risk to a small, reviewable set instead of betting on catching every exception after the fact.
 
-I first confirmed the gate was actually removable: a conversation with the **warehouse manager** to understand downstream impact, then with **finance** and the **Direct Sales Manager** to trace the gate's history and confirm it was no longer a real control. Only then did I design the automation.
+I first confirmed the gate was actually removable: a conversation with the **warehouse manager** to understand downstream impact, then with the **CFO** and the **Direct Sales Manager** to trace the gate's history and confirm it was no longer a real control. Only then did I design the automation. (See [Solution Design](solution-design.md) for the alternatives weighed and the full rationale.)
 
 ### Before
 
