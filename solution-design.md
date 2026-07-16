@@ -66,6 +66,16 @@ The solution had to satisfy five constraints, in roughly this priority:
 
 **Why:** That path was already trusted and working. Building new exception automation would have added scope and risk for the minority of orders — to replace a process that wasn't broken.
 
+### 6. Address match: risk-proportionate, not blanket
+
+**Options:** Require billing/shipping match on every order · drop the check entirely · require it only above a value threshold.
+
+**Choice:** Removed the blanket requirement, then reinstated it at $400 and above.
+
+**Why:** The original check was strict normalized equality across the full address. It's a legitimate fraud signal, but it fired on benign mismatches — gift shipments, apartment fields entered inconsistently, work vs. home addresses — and blocked far more good orders than fraudulent ones. Dropping it entirely lifted the auto-approval rate but discarded a real signal on exactly the orders where it matters most. The threshold restores it where the downside justifies the friction: a mismatch on a $60 order is noise; on a $400+ order it's worth a human look. The allowlist principle holds — the check fails to the existing CSR path, not to auto-approval.
+
+**Trade-off accepted:** Shopify Flow conditions can only compare a field to a literal, not to another field, so the comparison required a Run code action — the one place this design breaks the "minimize custom code" constraint. Ten lines of JavaScript, no network calls, and the threshold itself stays in the Flow UI where ops can tune it without touching the script.
+
 ---
 
 ## 📋 Alternatives Considered
@@ -78,3 +88,5 @@ The solution had to satisfy five constraints, in roughly this priority:
 | Delete the gate outright | Removes the safety net entirely. The allowlist preserves human review for the unusual minority. |
 | Direct production cutover | No way to measure qualification rate or catch mis-tagging before live impact. Observe-only de-risked it. |
 | New automated exception handling | Adds scope and risk for the ~39% edge cases when the existing CSR path already handles them reliably. |
+| Blanket billing/shipping address match | Strict equality fires on benign mismatches (gifts, apartment fields, work addresses) — blocked far more good orders than bad. Reinstated at $400+ where the fraud downside justifies the friction. |
+| Drop address match entirely | Discards a real fraud signal on high-value orders for a marginal lift in auto-approval rate. |
