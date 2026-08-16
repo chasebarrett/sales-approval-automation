@@ -3,7 +3,7 @@
 
 This repository documents a production process-automation project at **SCARPA North America**, where a manual, per-order approval gate between **Shopify, Celigo, and NetSuite** delayed fulfillment and forced uneven warehouse intake — and how an **allowlist-based** automation removed it without losing the safety the manual check originally provided.
 
-The result: **61% of orders now ship with no manual approval.**
+The result: **62% of orders now ship with no manual approval**, and fulfillment is **26% faster** across the board.
 
 ---
 
@@ -16,6 +16,7 @@ The result: **61% of orders now ship with no manual approval.**
 - [Rollout](#-rollout)
 - [Results](#-results)
 - [Iterations](#-iterations)
+- [Impact Analysis](impact-analysis.md) *(companion doc)*
 - [What This Demonstrates](#-what-this-demonstrates)
 
 ---
@@ -52,7 +53,7 @@ I first confirmed the gate was actually removable: a conversation with the **war
 
 ![Order flow before and after the SATS automation](diagrams/order-flow.svg)
 
-*Before: every order waits on a manual CSR approval, reaching the warehouse in uneven batches. After: Shopify Flow auto-approves the 61% that clearly qualify and routes the rest to the existing CSR path — the warehouse receives a steady, even flow.*
+*Before: every order waits on a manual CSR approval, reaching the warehouse in uneven batches. After: Shopify Flow auto-approves the ~62% that clearly qualify and routes the rest to the existing CSR path — the warehouse receives a steady, even flow.*
 
 ---
 
@@ -80,11 +81,14 @@ The revert is documented here on purpose — a staging environment and a fast, c
 
 ## 📈 Results
 
-- **61% of orders auto-approve** and ship with no manual touch.
-- CSRs spend notably less time on approvals; that capacity returns to higher-value work.
+Measured Jan 1 – Aug 15, 2026, split on auto-approval going live May 19. Full methodology and limitations: **[Impact Analysis](impact-analysis.md)**.
+
+- **62.2% of orders auto-approve** and ship with no manual touch — 3,203 of 5,147 orders since go-live, a rate that has held steady across seven criteria changes.
+- **26% faster fulfillment** across all orders — 65 hrs median order-to-fulfillment before, 48 hrs after, at essentially unchanged daily volume.
+- **30% faster on auto-approved orders specifically** — 43 hrs vs. 61 hrs for orders routed to manual review **in the same period**, which holds season, staffing, and warehouse conditions constant. Two independent comparisons, pointing the same direction.
+- **55% lower chargeback rate** — 0.217% (17 / 7,834 orders) to 0.097% (5 / 5,147), roughly 6 chargebacks prevented against the prior rate. **Provisional:** disputes lag 30–90+ days, so the post-period cohort hasn't matured and this figure will decline. See [the caveat](impact-analysis.md#-chargeback-reduction).
 - The warehouse manager confirmed order intake is materially more **consistent and stable**.
-- Full quantification of time-to-fulfillment and labor savings is **in progress** — figures here will be updated as they're measured, not estimated.
-- The 61% figure predates the address-match changes (see [Iterations](#-iterations)). Removing the blanket match requirement should raise it; the $400 threshold pulls some back. The new rate is being measured and will be updated here rather than projected.
+- CSR labor savings remain **unquantified** — the freed capacity is real and observed, but no time-tracking data supports a specific figure, so none is claimed.
 
 ---
 
@@ -94,7 +98,7 @@ Live and maintained. The criteria were always going to need tuning, and most cha
 
 | Date | Change | Raised by |
 |------|--------|-----------|
-| May 18 | Go live | — |
+| May 19 | Go live — auto-approval activated | — |
 | May 20 | Exclude PFAS-restricted orders from auto-tagging | eCommerce (me) |
 | May 21 | Exclude internal / dev (Forix) test orders | eCommerce (me) |
 | Jun 8 | Fix one-size hat edge case | CS coordinator |

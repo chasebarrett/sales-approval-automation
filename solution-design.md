@@ -62,7 +62,7 @@ The solution had to satisfy five constraints, in roughly this priority:
 
 **Options:** Build new automated exception handling for non-qualifying orders · route them to the existing CSR manual path.
 
-**Choice:** Edge cases (the ~39% that don't auto-approve) flow to the same manual review CSRs already ran.
+**Choice:** Edge cases (the ~38% that don't auto-approve) flow to the same manual review CSRs already ran.
 
 **Why:** That path was already trusted and working. Building new exception automation would have added scope and risk for the minority of orders — to replace a process that wasn't broken.
 
@@ -87,6 +87,6 @@ The solution had to satisfy five constraints, in roughly this priority:
 | Decision logic inside Celigo | Celigo is an integration layer, not a rules engine; overloading it strains the wrong tool. |
 | Delete the gate outright | Removes the safety net entirely. The allowlist preserves human review for the unusual minority. |
 | Direct production cutover | No way to measure qualification rate or catch mis-tagging before live impact. Observe-only de-risked it. |
-| New automated exception handling | Adds scope and risk for the ~39% edge cases when the existing CSR path already handles them reliably. |
+| New automated exception handling | Adds scope and risk for the ~38% edge cases when the existing CSR path already handles them reliably. |
 | Blanket billing/shipping address match | Strict equality fires on benign mismatches (gifts, apartment fields, work addresses) — blocked far more good orders than bad. Reinstated at $400+ where the fraud downside justifies the friction. |
 | Drop address match entirely | Discards a real fraud signal on high-value orders for a marginal lift in auto-approval rate. |
