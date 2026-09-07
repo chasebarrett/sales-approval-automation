@@ -3,7 +3,7 @@
 
 This repository documents a production process-automation project at **SCARPA North America**, where a manual, per-order approval gate between **Shopify, Celigo, and NetSuite** delayed fulfillment and forced uneven warehouse intake — and how an **allowlist-based** automation removed it without losing the safety the manual check originally provided.
 
-The result: **~94% of orders now ship with no manual approval**, and fulfillment is **26% faster** across the board.
+The result: after the latest refinement (**Aug 25, 2026**), **~94% of orders now ship with no manual approval** — up from the **62%** measured before that change — with fulfillment **26% faster** across the board.
 
 ---
 
@@ -17,7 +17,6 @@ The result: **~94% of orders now ship with no manual approval**, and fulfillment
 - [Results](#-results)
 - [Iterations](#-iterations)
 - [Impact Analysis](impact-analysis.md) *(companion doc)*
-- [Flow Logic](flow-logic.md) *(companion doc)*
 - [What This Demonstrates](#-what-this-demonstrates)
 
 ---
@@ -62,7 +61,7 @@ I first confirmed the gate was actually removable: a conversation with the **war
 
 Three layers, deliberately lightweight where possible:
 
-1. **Shopify Flow** — evaluates each order against approval criteria and tags qualifying orders `SATS-auto-approve`. No-code, so the rules stay easy to tune. The full decision tree is documented in [Flow Logic](flow-logic.md).
+1. **Shopify Flow** — evaluates each order against approval criteria and tags qualifying orders `SATS-auto-approve`. No-code, so the rules stay easy to tune.
 2. **Celigo** — updated the integration to detect the tag and carry the approval through to NetSuite.
 3. **NetSuite** — the heaviest lift. Existing invoicing and fulfillment workflows only fired when the approval box was checked *manually*; they had to be updated to handle orders arriving already approved.
 
@@ -84,14 +83,14 @@ The revert is documented here on purpose — a staging environment and a fast, c
 
 Measured Jan 1 – Aug 15, 2026, split on auto-approval going live May 19. Full methodology and limitations: **[Impact Analysis](impact-analysis.md)**.
 
-- **62.2% of orders auto-approved** during the first measured window — 3,203 of 5,147 orders from go-live through Aug 15, a rate that held steady across the seven criteria changes in that period. *(A later change lifted this to ~94% — see the update note below.)*
+- **62.2% of orders auto-approved** and shipped with no manual touch — 3,203 of 5,147 orders from go-live through Aug 15, steady across seven criteria changes. A subsequent Aug 25 refinement (the $400 address-match threshold) lifted this to **~94%** — see the note below and the [Iterations](#-iterations) log.
 - **26% faster fulfillment** across all orders — 65 hrs median order-to-fulfillment before, 48 hrs after, at essentially unchanged daily volume.
 - **30% faster on auto-approved orders specifically** — 43 hrs vs. 61 hrs for orders routed to manual review **in the same period**, which holds season, staffing, and warehouse conditions constant. Two independent comparisons, pointing the same direction.
 - **55% lower chargeback rate** — 0.217% (17 / 7,834 orders) to 0.097% (5 / 5,147), roughly 6 chargebacks prevented against the prior rate. **Provisional:** disputes lag 30–90+ days, so the post-period cohort hasn't matured and this figure will decline. See [the caveat](impact-analysis.md#-chargeback-reduction).
 - The warehouse manager confirmed order intake is materially more **consistent and stable**.
 - CSR labor savings remain **unquantified** — the freed capacity is real and observed, but no time-tracking data supports a specific figure, so none is claimed.
 
-**Update — Aug 25, 2026.** A later refinement to the address-match rule (require a billing/shipping match only on orders *over* $400, rather than at $400 and above — see [Iterations](#-iterations) and [Flow Logic](flow-logic.md)) coincided with the auto-approve rate rising to **~94%** of orders. That's a current operational reading, not yet a formally measured window; it will be quantified the same way the figures above were, once the post-change period matures — measured, not projected.
+> **Update — Aug 25, 2026:** Replacing the blanket billing/shipping match with a $400 threshold raised auto-approval to **~94%** (observed in operations, not yet re-measured over a comparable window). The speed and chargeback figures above cover the period *before* this change; a like-for-like re-measurement is pending — see [Impact Analysis](impact-analysis.md).
 
 ---
 
@@ -107,17 +106,18 @@ Live and maintained. The criteria were always going to need tuning, and most cha
 | Jun 8 | Fix one-size hat edge case | CS coordinator |
 | Jun 26 | Exclude orders shipping to Delaware | CS coordinator |
 | Jul 6 | Restrict auto-approval to US / CA billing addresses | CS coordinator |
-| Jul 16 | Remove blanket billing/shipping address-match requirement | VP |
-| Jul 16 | Require billing/shipping match on orders $400 and above | VP |
-| Aug 25 | Loosen the threshold — require address match only on orders *over* $400 | VP |
+| Jul 16 | VP proposes replacing the blanket billing/shipping address-match requirement with a value threshold | VP |
+| Aug 25 | **Implemented:** blanket bill/ship match removed; match now required only on orders **over $400** | eCommerce (me) |
 
-Three of these are worth more than a changelog line:
+Four of these are worth more than a changelog line:
 
 **One-size hats (Jun 8)** — small apparel was failing to auto-approve. The line-item size check had no handling for products without a numeric size, so hats fell out of the allowlist and into manual review for no real reason. Surfaced by the CS coordinator, who was clearing them by hand.
 
 **Delaware (Jun 26)** — the CS coordinator flagged an abnormal cluster of fraudulent orders shipping to Delaware. A pattern only visible to someone working the review queue daily, not derivable from the Flow logic itself.
 
 **Billing country (Jul 6)** — also from the CS coordinator, and not a fraud control. Orders routed through US freight forwarders present a domestic *shipping* address while the buyer is overseas. Gating on **billing** country catches them, keeping the automation aligned with SCARPA's subsidiary dealer guidelines — direct sales shouldn't auto-approve into territories served by SCARPA UK, SCARPA Germany, and the rest. The check is positively framed (`== US OR == CA`) so a missing billing address falls to review rather than slipping through.
+
+**$400 address-match threshold (Jul 16 proposed · Aug 25 implemented)** — the allowlist originally required billing and shipping to match on *every* order. It's a real fraud signal, but strict equality fired on benign mismatches — gifts, inconsistent apartment fields, work-vs-home addresses — and blocked far more good orders than bad. The VP raised the fix on Jul 16; it went live Aug 25. The blanket check is gone; a normalized address match is now required only on orders **over $400**, where the fraud downside justifies the friction (orders of $400 or less pass without it). Auto-approval jumped from ~62% to **~94%**. Because Shopify Flow can only compare a field to a literal — not two fields to each other — the comparison runs in a small `Run code` step, with the threshold left in the Flow UI so it stays tunable. See [Solution Design → Decision 6](solution-design.md#6-address-match-risk-proportionate-not-blanket).
 
 ## 🧰 What This Demonstrates
 

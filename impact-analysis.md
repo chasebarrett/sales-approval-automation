@@ -34,13 +34,13 @@ The consequence for analysis: **every before/after comparison below splits on Ma
 
 ## 📊 Adoption & Coverage
 
-**62.2% of orders auto-approve** — 3,203 of 5,147 orders since May 19, 2026.
+**62.2% of orders auto-approved** — 3,203 of 5,147 orders from May 19 through Aug 15, 2026.
 
 The remaining ~38% route to the same CSR review path that previously handled 100% of orders.
 
-Coverage held steady around 62% across the observe-only period, the May 19 activation, and the seven criteria changes within the measured window. That stability matters: an allowlist that decays — as fraud patterns shift, product mix changes, and exclusions accumulate — would show a sagging qualification rate. It didn't. The [iteration loop](README.md#-iterations) is keeping the criteria current rather than slowly strangling coverage.
+Coverage has held steady across the observe-only period, the May 19 activation, and seven subsequent criteria changes. That stability matters more than the headline number: an allowlist that decays — as fraud patterns shift, product mix changes, and exclusions accumulate — would show a sagging qualification rate. It hasn't. The [iteration loop](README.md#-iterations) is keeping the criteria current rather than slowly strangling coverage.
 
-**After the window (Aug 25, 2026):** the address-match rule was refined to apply only *above* $400 (see [Flow Logic](flow-logic.md)), and the auto-approve rate has since run **~94%**. Because that change lands outside the measured period above, ~94% is reported as a current operational rate, not a measured result — the same discipline the rest of this page holds to. A formal read waits for the post-change window to mature.
+> **Post-window change (Aug 25, 2026):** replacing the blanket billing/shipping match with a $400 threshold — implemented *after* this analysis period — lifted auto-approval to **~94%**. That change is not reflected in the figures on this page, which end Aug 15; a like-for-like re-measurement is pending.
 
 ---
 
@@ -89,7 +89,7 @@ The second comparison also controls for what the first cannot: both groups sit i
 
 **If the direction survives maturation, it is the more interesting result of the two.** The stated goal was to remove a bottleneck *without losing the safety the manual check provided* — a defensible outcome was "chargebacks hold flat." A decline would mean the allowlist outperforms the check it replaced. Two plausible mechanisms:
 
-- **The allowlist encodes signals the manual check never applied consistently.** The Delaware exclusion, billing-country gating, and the $400 address-match threshold are explicit, uniform rules. A CSR eyeballing hundreds of orders applies them unevenly by definition.
+- **The allowlist encodes signals the manual check never applied consistently.** The Delaware exclusion, billing-country gating, and the billing/shipping address match are explicit, uniform rules. A CSR eyeballing hundreds of orders applies them unevenly by definition.
 - **Concentrated review attention.** CSRs now review ~38% of orders instead of 100%, and that subset is pre-filtered to the genuinely unusual — more scrutiny per suspicious order, less time rubber-stamping obviously clean ones.
 
 Both are consistent with the data; neither is proven by it.
@@ -114,7 +114,7 @@ Stated plainly, because a results page that only argues one direction isn't wort
 SATS is delivering across the dimensions it was designed for:
 
 - **Speed** — 26% faster fulfillment across all orders, 30% on auto-approved orders specifically. Two independent comparisons agree, and the within-period cut rules out seasonality.
-- **Scale** — 62.2% of orders auto-approve, stable across five months and seven criteria revisions, at comparable daily volume.
+- **Scale** — 62.2% of orders auto-approve, stable across five months and seven criteria revisions, at comparable daily volume. (A post-window Aug 25 change later raised this to ~94%; not yet re-measured.)
 - **Risk** — chargeback rate down 55%, **provisionally**. The post-period cohort has not matured and this figure will decline.
 
 The speed result is established. The risk result is directionally encouraging and not yet settled, and is reported that way deliberately: the project's credibility rests on the same discipline that produced the [observe-only rollout](solution-design.md#4-observe-only-before-activation) — measuring before claiming.

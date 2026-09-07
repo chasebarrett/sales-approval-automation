@@ -70,11 +70,11 @@ The solution had to satisfy five constraints, in roughly this priority:
 
 **Options:** Require billing/shipping match on every order · drop the check entirely · require it only above a value threshold.
 
-**Choice:** Removed the blanket requirement, then reinstated it at $400 and above. *(Later refined Aug 25, 2026 to apply only above $400 rather than at $400 and above.)*
+**Choice:** Removed the blanket requirement, then reinstated it above a value threshold. Proposed by the VP on Jul 16, 2026; implemented Aug 25, 2026 — which lifted auto-approval from ~62% to ~94%.
 
 **Why:** The original check was strict normalized equality across the full address. It's a legitimate fraud signal, but it fired on benign mismatches — gift shipments, apartment fields entered inconsistently, work vs. home addresses — and blocked far more good orders than fraudulent ones. Dropping it entirely lifted the auto-approval rate but discarded a real signal on exactly the orders where it matters most. The threshold restores it where the downside justifies the friction: a mismatch on a $60 order is noise; on a $400+ order it's worth a human look. The allowlist principle holds — the check fails to the existing CSR path, not to auto-approval.
 
-**Trade-off accepted:** Shopify Flow conditions can only compare a field to a literal, not to another field, so the comparison required a Run code action — the one place this design breaks the "minimize custom code" constraint. Ten lines of JavaScript, no network calls, and the threshold itself stays in the Flow UI where ops can tune it without touching the script.
+**Trade-off accepted:** Shopify Flow conditions can only compare a field to a literal, not to another field, so the comparison required a Run code action — the one place this design breaks the "minimize custom code" constraint. Ten lines of JavaScript, no network calls, and the threshold itself stays in the Flow UI where ops can tune it without touching the script. The gate passes when the addresses match **or** the subtotal is $400 or less, so the requirement bites strictly *above* $400.
 
 ---
 
