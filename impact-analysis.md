@@ -38,7 +38,9 @@ The consequence for analysis: **every before/after comparison below splits on Ma
 
 The remaining ~38% route to the same CSR review path that previously handled 100% of orders.
 
-Coverage has held steady across the observe-only period, the May 19 activation, and seven subsequent criteria changes. That stability matters more than the headline number: an allowlist that decays — as fraud patterns shift, product mix changes, and exclusions accumulate — would show a sagging qualification rate. It hasn't. The [iteration loop](README.md#-iterations) is keeping the criteria current rather than slowly strangling coverage.
+Coverage held steady around 62% across the observe-only period, the May 19 activation, and the seven criteria changes within the measured window. That stability matters: an allowlist that decays — as fraud patterns shift, product mix changes, and exclusions accumulate — would show a sagging qualification rate. It didn't. The [iteration loop](README.md#-iterations) is keeping the criteria current rather than slowly strangling coverage.
+
+**After the window (Aug 25, 2026):** the address-match rule was refined to apply only *above* $400 (see [Flow Logic](flow-logic.md)), and the auto-approve rate has since run **~94%**. Because that change lands outside the measured period above, ~94% is reported as a current operational rate, not a measured result — the same discipline the rest of this page holds to. A formal read waits for the post-change window to mature.
 
 ---
 
